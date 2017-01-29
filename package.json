@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "global": "^4.3.1",
+    "johnny-five": "^0.10.6"
+  }
+}
