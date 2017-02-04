@@ -1,42 +1,40 @@
-const five = require("johnny-five"),
+var five = require("johnny-five"),
 	board = new five.Board();
 
-const MidiTest = require('./midi_test.js');
-const pinNumbers = [8, 10, 12];
-const pinNumber = pinNumbers[2];
-
-let switches = {};
-
-board.on("ready", () => {
-	const mySwitch = new five.Switch(pinNumber);
-
-	mySwitch.on("open", () => {
-		console.log('switch' + pinNumber + ' is open');
-		// MidiTest.triggerMidiOn(pinNumber);
-	});
-
-	mySwitch.on("close", () => {
-		console.log('switch' + pinNumber + ' is closed');
-		// MidiTest.triggerMidiOn(pinNumber);
-	});
+var pinNumber = 12;
+var lastState;
+var currentState;
 
 
 
-
-	// pinNumbers.forEach((pinNumber) => {
-	// 	switches[pinNumber] = new five.Switch(pinNumber);
+board.on("ready", function() {
+	var mySwitch = new five.Switch(pinNumber);
+	var led = new five.Led(13);
+	// lastState = mySwitch.isOpen;
+	// currentState = mySwitch.isOpen;
 	//
-		// switches[pinNumber].on("open", () => {
-		// 	console.log('switch' + pinNumber + ' is open');
-		// 	// MidiTest.triggerMidiOn(pinNumber);
-	  // });
-		//
-		// switches[pinNumber].on("close", () => {
-		// 	console.log('switch' + pinNumber + ' is closed');
-		// 	// MidiTest.triggerMidiOn(pinNumber);
-	  // });
-		//
-	// });
+	// setInterval(() => {
+	//
+	// 	if(currentState !== lastState) {
+	// 		const stateString = (currentState.isOpen ? 'is open' : 'is closed');
+	// 		console.log('state change detected' + stateString);
+	// 		lastState = currentState;
+	// 	}
+	// 	currentState = mySwitch.isOpen;
+	// 	// console.log('switch is open?' + mySwitch.isOpen);
+	//
+	// }, 100);
 
+
+	//
+  mySwitch.on("open", function() {
+		console.log('switch' + pinNumber + ' is open');
+    led.off();
+  });
+
+  mySwitch.on("close", function() {
+		console.log('switch' + pinNumber + 'is closed' );
+    led.on();
+  });
 
 });
