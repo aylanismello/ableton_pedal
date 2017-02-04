@@ -1,40 +1,40 @@
 var five = require("johnny-five"),
 	board = new five.Board();
 
-var pinNumber = 12;
-var lastState;
-var currentState;
-
+var pinNumbers = [8, 10, 12];
 
 
 board.on("ready", function() {
-	var mySwitch = new five.Switch(pinNumber);
-	var led = new five.Led(13);
-	// lastState = mySwitch.isOpen;
-	// currentState = mySwitch.isOpen;
-	//
-	// setInterval(() => {
-	//
-	// 	if(currentState !== lastState) {
-	// 		const stateString = (currentState.isOpen ? 'is open' : 'is closed');
-	// 		console.log('state change detected' + stateString);
-	// 		lastState = currentState;
-	// 	}
-	// 	currentState = mySwitch.isOpen;
-	// 	// console.log('switch is open?' + mySwitch.isOpen);
-	//
-	// }, 100);
+	var switchOne = new five.Switch(8);
+	var switchTwo = new five.Switch(pinNumbers[1]);
+	var switchThree = new five.Switch(pinNumbers[2]);
 
-
-	//
-  mySwitch.on("open", function() {
-		console.log('switch' + pinNumber + ' is open');
-    led.off();
+  switchOne.on("open", function() {
+		console.log('switch' + 8 + ' is open');
   });
 
-  mySwitch.on("close", function() {
-		console.log('switch' + pinNumber + 'is closed' );
-    led.on();
+  switchOne.on("close", function() {
+		console.log('switch' + 8 + 'is closed' );
   });
+
+
+  // switchTwo.on("open", function() {
+	// 	console.log('switch' + pinNumbers[1] + ' is open');
+  // });
+	//
+  // switchTwo.on("close", function() {
+	// 	console.log('switch' + pinNumbers[1] + 'is closed' );
+  // });
+	//
+	//
+  // switchThree.on("open", function() {
+	// 	console.log('switch' + pinNumbers[2] + ' is open');
+  // });
+	//
+  // switchThree.on("close", function() {
+	// 	console.log('switch' + pinNumbers[2] + 'is closed' );
+  // });
+
+
 
 });
