@@ -1,6 +1,9 @@
 {
   "dependencies": {
+    "easymidi": "^0.0.2",
     "global": "^4.3.1",
-    "johnny-five": "^0.10.6"
+    "johnny-five": "^0.10.6",
+    "midi": "^0.9.5",
+    "pryjs": "^1.0.3"
   }
 }

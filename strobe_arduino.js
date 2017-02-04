@@ -7,5 +7,6 @@ board.on("ready", function() {
 
   // Strobe the pin on/off, defaults to 100ms phases
 	led.blink(1000);
+  // led.on();
   // led.strobe();
 });
