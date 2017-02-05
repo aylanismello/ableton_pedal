@@ -7,16 +7,25 @@ var pinNumbers = [8, 10, 12];
 board.on("ready", () => {
 
 	const switches = five.Switches(pinNumbers);
+	const mySwitch = five.Switch(8);
 
-	switches.on("open", (currentSwitch) => {
-		console.log(currentSwitch.pin);
-		console.log('open');
+	mySwitch.on("open", () => {
+		console.log(`switch 8 is open`);
+	});
+	mySwitch.on("close", () => {
+		console.log(`switch 8 is close`);
 	});
 
-	switches.on("close", (currentSwitch) => {
-		console.log(currentSwitch.pin);
-		console.log('closed');
-	});
+
+	// switches.on("open", (currentSwitch) => {
+	// 	console.log(currentSwitch.pin);
+	// 	console.log('open');
+	// });
+	//
+	// switches.on("close", (currentSwitch) => {
+	// 	console.log(currentSwitch.pin);
+	// 	console.log('closed');
+	// });
 
 	// var switchOne = new five.Switch(8);
 	// var switchTwo = new five.Switch(pinNumbers[1]);
