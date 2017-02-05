@@ -4,18 +4,31 @@ var five = require("johnny-five"),
 var pinNumbers = [8, 10, 12];
 
 
-board.on("ready", function() {
-	var switchOne = new five.Switch(8);
-	var switchTwo = new five.Switch(pinNumbers[1]);
-	var switchThree = new five.Switch(pinNumbers[2]);
+board.on("ready", () => {
 
-  switchOne.on("open", function() {
-		console.log('switch' + 8 + ' is open');
-  });
+	const switches = five.Switches(pinNumbers);
 
-  switchOne.on("close", function() {
-		console.log('switch' + 8 + 'is closed' );
-  });
+	switches.on("open", (currentSwitch) => {
+		console.log(currentSwitch.pin);
+		console.log('open');
+	});
+
+	switches.on("close", (currentSwitch) => {
+		console.log(currentSwitch.pin);
+		console.log('closed');
+	});
+
+	// var switchOne = new five.Switch(8);
+	// var switchTwo = new five.Switch(pinNumbers[1]);
+	// var switchThree = new five.Switch(pinNumbers[2]);
+	//
+  // switchOne.on("open", function() {
+	// 	console.log('switch' + 8 + ' is open');
+  // });
+	//
+  // switchOne.on("close", function() {
+	// 	console.log('switch' + 8 + 'is closed' );
+  // });
 
 
   // switchTwo.on("open", function() {
