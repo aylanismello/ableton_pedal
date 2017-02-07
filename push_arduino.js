@@ -9,10 +9,40 @@ var pinNumbers = [8, 10, 12];
 // poll time in onPress event
 
 board.on("ready", () => {
-	const buttons = new five.Buttons(pinNumbers);
 
+
+	//
+  // const button = new five.Button({
+  //   pin: 8,
+  //   isPullup: true
+  // });
+	//
+	// button.on("down", value => console.log('down'));
+	// button.on("up", value => console.log('up'));
+
+  // led = new five.Led(13);
+
+
+	const buttons = new five.Buttons([
+	{
+		pin: 8,
+		isPullup: true
+
+	}, {
+		pin: 10,
+		isPullup: true
+
+	}, {
+		pin: 12,
+		isPullup: true
+
+	}]);
+
+
+	// const buttons = new five.Buttons({pin});
+	//
 	// buttons.forEach(button => console.log(button.downValue));
-
+	//
 	buttons.on("press", (thisButton) => {
 			console.log(`button ${thisButton.pin} is pressed!`);
 	});
