@@ -24,32 +24,29 @@ let pins = {
 	}
 };
 
+// we need to throw an error if after 2 seconds all pins are not initialized
 
-// var buttonStates = {8: true, 10: true, 12: true};
+const isInitialized = (thePins) => {
+	return Object.keys(thePins).every(pin => thePins[pin].initialized);
+};
 
-// 3 state variables for all pins
+const pinShape = pin => ({
+	pin,
+	isPullup: true
+});
 
-
-// poll time in onPress event
-
+let initString;
 
 board.on("ready", () => {
+	const buttons = new five.Buttons([ pinShape(8), pinShape(10), pinShape(12) ]);
 
-	const buttons = new five.Buttons([
-	{
-		pin: 8,
-		isPullup: true
-
-	}, {
-		pin: 10,
-		isPullup: true
-
-	}, {
-		pin: 12,
-		isPullup: true
-
-	}]);
-
+	setTimeout(() => {
+		if(isInitialized(pins)) {
+			console.log('initialized in 2 seconds!');
+		} else {
+			throw 'COULD NOT INITIALIZE. UNSTABLE STATE';
+		}
+	}, 2000)
 
 	buttons.on("down", (thisButton) => {
 		let downPin = thisButton.pin;
@@ -63,8 +60,6 @@ board.on("ready", () => {
 				console.log(`pin ${downPin} changed state`);
 			}
 		}
-
-		// console.log(pins);
 	});
 
 	buttons.on("up", (thisButton) => {
@@ -79,9 +74,5 @@ board.on("ready", () => {
 				console.log(`pin ${upPin} changed state`);
 			}
 		}
-
-		// console.log(pins);
 	});
-
-
 });
