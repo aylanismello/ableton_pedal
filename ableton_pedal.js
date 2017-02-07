@@ -1,5 +1,12 @@
 const five = require("johnny-five");
 const board = new five.Board();
+const MidiTest = require('./midi_helper.js');
+
+let aftertouch = true;
+
+if(process.argv[2] === 'setup') {
+	aftertouch = false;
+}
 
 var pinNumbers = [8, 10, 12];
 
@@ -35,6 +42,15 @@ const pinShape = pin => ({
 	isPullup: true
 });
 
+const initializePin = (pin, state) => {
+	pins[pin].initialized = true;
+	pins[pin].state = state;
+}
+
+const fireMidiNote = (note) => {
+	MidiTest.triggerMidiOn(note, aftertouch);
+}
+
 let initString;
 
 board.on("ready", () => {
@@ -53,11 +69,13 @@ board.on("ready", () => {
 
 		if(!pins[downPin].initialized) {
 			console.log('setting initial pin value');
-			pins[downPin].initialized = true;
-			pins[downPin].state = STATE_CONSTANTS.DOWN;
+			initializePin(downPin, STATE_CONSTANTS.DOWN);
+			// pins[downPin].initialized = true;
+			// pins[downPin].state = STATE_CONSTANTS.DOWN;
 		} else {
 			if (pins[downPin] !== STATE_CONSTANTS.DOWN) {
-				console.log(`pin ${downPin} changed state`);
+				// console.log(`pin ${downPin} changed state`);
+				fireMidiNote(downPin);
 			}
 		}
 	});
@@ -67,11 +85,13 @@ board.on("ready", () => {
 
 		if(!pins[upPin].initialized) {
 			console.log('setting initial pin value');
-			pins[upPin].initialized = true;
-			pins[upPin].state = STATE_CONSTANTS.UP;
+			initializePin(upPin, STATE_CONSTANTS.UP);
+			// pins[upPin].initialized = true;
+			// pins[upPin].state = STATE_CONSTANTS.UP;
 		} else {
 			if (pins[upPin] !== STATE_CONSTANTS.UP) {
-				console.log(`pin ${upPin} changed state`);
+				// console.log(`pin ${upPin} changed state`);
+				fireMidiNote(upPin);
 			}
 		}
 	});
